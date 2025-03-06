@@ -10,12 +10,13 @@ import {
   ResponsiveContainer,
   BarChart,
   Bar,
-  Rectangle,
 } from "recharts";
 
 function App() {
-  const { data } = useFetchApi();
-  console.log(data);
+  const { data1, data2 } = useFetchApi();
+  const data3 = data2.slice(0, 22);
+  console.log(data1);
+  console.log(data3);
 
   return (
     <>
@@ -26,11 +27,11 @@ function App() {
 
         <ResponsiveContainer width={"100%"} height={300}>
           <LineChart
-            data={data}
+            data={data1}
             margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
           >
-            <XAxis dataKey="code" padding={{ left: 30, right: 30 }} />
-            <YAxis />
+            <XAxis dataKey="localDate" padding={{ left: 30, right: 30 }} />
+            <YAxis dataKey="rate" />
             <Tooltip
               contentStyle={{
                 backgroundColor: "black",
@@ -47,16 +48,16 @@ function App() {
             />
             <Line
               type="monotone"
-              dataKey="volume"
+              dataKey="localDate"
               stroke="#82ca9d"
-              name="Volume"
+              name="Date"
             />
           </LineChart>
         </ResponsiveContainer>
 
         <ResponsiveContainer width="100%" height={300}>
           <BarChart
-            data={data}
+            data={data3}
             margin={{
               top: 5,
               right: 30,
@@ -69,15 +70,18 @@ function App() {
             <Tooltip />
             <Legend />
             <Bar
-              dataKey="cap"
+              dataKey="volume"
               fill="#8884d8"
-              activeBar={<Rectangle fill="pink" stroke="blue" />}
+              name="Volume"
+              isAnimationActive={true}
+              radius={[8, 8, 0, 0]}
             />
             <Bar
-              dataKey="volume"
+              dataKey="liquidity"
               fill="#82ca9d"
-              name="Volume"
-              activeBar={<Rectangle fill="gold" stroke="purple" />}
+              name="Liquidity"
+              isAnimationActive={true}
+              radius={[8, 8, 0, 0]}
             />
           </BarChart>
         </ResponsiveContainer>
